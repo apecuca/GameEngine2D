@@ -51,6 +51,34 @@ public:
 	void SetRotation(const glm::vec3& angle, const bool& clamp);
 	void Rotate(const float& angle);
 
+	template <class T>
+	std::unique_ptr<T>& AddComponent()
+	{
+		if (components.size() - 1 >= components.capacity())
+		{
+			components.reserve(4);
+		}
+
+		components.push_back(std::make_unique<T>(*this));
+
+		return reinterpret_cast<std::unique_ptr<T>&>(components[components.size() - 1]);
+	}
+
+	template <class T>
+	std::unique_ptr<T>& GetComponent()
+	{
+		for (int i = 0; i < components.size(); i++)
+		{
+			if (typeid(T).name() != typeid(*components.at(i).get()).name())
+				continue;
+
+			return reinterpret_cast<std::unique_ptr<T>&>(components[i]);
+		}
+
+		throw std::runtime_error("No component of type found in object");
+	}
+
+	/*
 	// 
 	template <class T> 
 	std::shared_ptr<T> AddComponent()
@@ -80,6 +108,7 @@ public:
 
 		throw std::runtime_error("No component of type found in object");
 	}
+	*/
 
 private:
 	// 
@@ -90,7 +119,7 @@ private:
 	glm::vec3 lastRotation = glm::vec3(0.f);
 
 	// 
-	std::vector<std::shared_ptr<Component>> components;
+	std::vector<std::unique_ptr<Component>> components;
 
 	void UpdateRotation(const glm::vec3& lastOperation);
 };

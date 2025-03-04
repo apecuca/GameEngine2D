@@ -24,6 +24,7 @@ This todo list is being updated as I think of new things to implement and progre
 ##### Renderization
 - [x] Shader rendering
 	- [ ] Custom render order
+	- [ ] Pooling system for textures
 	- [x] Texture (sprite) support
 		- [ ] Animation system
 
@@ -38,6 +39,10 @@ For UI support, I'll plan on using Dear ImGui, since it has a lot of functionali
 ##### Sound
 I still haven't thought about this xd
 - [ ] Task
+
+##### Extras
+- [x] Change the shader's pointer from shared to unique
+	- [ ] Function to return reference
 
 ### Technologies and libraries used
 C++ https://learn.microsoft.com/en-us/cpp/?view=msvc-170 </br>
