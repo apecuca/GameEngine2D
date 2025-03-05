@@ -6,10 +6,9 @@
 
 // External
 #include <glm/gtc/matrix_transform.hpp>
-#include "stb_image.h"
-#include "GLFW/glfw3.h"
 
 // Engine
+#include "Rendering.hpp"
 #include "../Window.hpp"
 #include "../Behaviour/GameObject.hpp"
 #include "../Debug.hpp"
@@ -120,7 +119,8 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile, GameObject& _pa
 
     // Extra
     Use();
-    SetVec4("color", 1.0f, 1.0f, 1.0f, 0.5f);
+    SetVec4("color", 1.0f, 1.0f, 1.0f, 0.5f); // Sprite color
+    SetInt("sprite", 0); // Set sampler2D's texture unit (GL_TEXTURE0)
 }
 
 Shader::~Shader()
@@ -137,7 +137,7 @@ Shader::~Shader()
 //
 
 // activate the shader
-void Shader::Draw()
+void Shader::Draw(const int& spriteId)
 {
     // Bind program
     Use();
@@ -163,7 +163,7 @@ void Shader::Draw()
 
     // Textures
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, textureID);
+    glBindTexture(GL_TEXTURE_2D, Rendering::GetPooledSprite(spriteId));
 
     // Bind VAO and draw call
     glBindVertexArray(VAO);
@@ -173,58 +173,6 @@ void Shader::Draw()
     viewMat = glm::mat4(1.0f);
     projMat = glm::mat4(1.0f);
     modelMat = glm::mat4(1.0f);
-}
-
-//
-// Texture handlers
-//
-
-GLuint Shader::LoadTextureFromFile(const std::string& file, bool gamma)
-{
-    std::string filePath = "../Resources/" + file;
-
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    stbi_set_flip_vertically_on_load(true);
-
-    int width, height, nrComponents;
-    unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nrComponents, 0);
-    if (data)
-    {
-        GLenum format = GL_RGB;
-        if (nrComponents == 1)
-            format = GL_RED;
-        else if (nrComponents == 3)
-            format = GL_RGB;
-        else if (nrComponents == 4)
-            format = GL_RGBA;
-        else Debug::Log("Unsupported format type");
-
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cout << "Texture failed to load at path: " << filePath << std::endl;
-    }
-
-    // Unbind textura
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    // Free space
-    stbi_image_free(data);
-
-    // Update uniforms
-    SetInt("sprite", 0);
-    SetBool("hasSprite", true);
-
-    return textureID;
 }
 
 // utility uniform functions

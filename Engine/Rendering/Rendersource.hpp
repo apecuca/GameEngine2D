@@ -31,10 +31,12 @@ public:
 
 	// Initialize shader for this render source
 	void InitShader(const char* vertex, const char* fragment);
-	void AddSprite(const std::string& fileName, bool gamma = false);
 
 	// Extra details
-	bool enabled;
+	bool enabled = true;
+
+	// This will be moved to another place
+	int currentSpriteId = 0;
 
 protected:
 	// Unique Identifier

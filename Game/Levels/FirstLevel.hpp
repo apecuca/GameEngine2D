@@ -12,17 +12,26 @@ public:
 
 	void OnLevelInit() override
 	{
-		// Initialize player
+		// Instantiate and save a reference to the GameObject of the player
 		player = std::make_shared<GameObject>(LevelManager::Instantiate());
-		player->AddComponent<RenderSource>();
-		std::unique_ptr<RenderSource>& renderSource = player->GetComponent<RenderSource>();
-		renderSource->InitShader("b_sprite.vert", "b_sprite.frag");
-		renderSource->AddSprite("Lupi.png");
+		player->AddComponent<RenderSource>(); // Add the component RenderSource to the player gameobject
+		// Save a reference to the component RenderSource from the player's gameobject
+		std::unique_ptr<RenderSource>& rnd = player->GetComponent<RenderSource>();
+		rnd->InitShader("b_sprite.vert", "b_sprite.frag"); // Initializes the shader (vertex and fragment)
+		rnd->currentSpriteId = Rendering::PoolSprite("Lupi.png"); // Update the current sprite to render
 	};
 
 	void CustomUpdate() override
 	{
-		player->Rotate(10.0f * 0.16f);
+		// This just updates the current sprite every few seconds,
+		// just testing if it's working
+
+		float _sin = glm::sin((float)glfwGetTime());
+
+		if (_sin >= 0.0f)
+			player->GetComponent<RenderSource>()->currentSpriteId = 1;
+		else
+			player->GetComponent<RenderSource>()->currentSpriteId = 0;
 	};
 
 private:

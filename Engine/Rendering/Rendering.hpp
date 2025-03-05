@@ -1,11 +1,20 @@
 #pragma once
 
+// Standard
 #include <vector>
+
+// External
+#include "../CommonInclude/CommonRender.hpp"
+
+// Engine
 #include "Rendersource.hpp"
 
 class Rendering
 {
 public:
+	// Initit call for rendering services, don't call this manually
+	static void Init();
+
 	// Render call, don't call this manually
 	static void Render();
 
@@ -14,7 +23,25 @@ public:
 	// Remove a render source
 	static void RemoveRenderSource(RenderSource& source);
 
+	//
+	// Sprite pooling
+	//
+
+	static int PoolSprite(const char* fileName);
+
+	static GLuint GetPooledSprite(const int& id);
+
+	static void ClearSpritePool();
+
 private:
+	// Avoids object creation
+	Rendering();
+
 	// Renderer list
 	static std::vector<std::reference_wrapper<RenderSource>> renderSources;
+
+	// List with id of pooled textures
+	static std::vector<GLuint> pooledSprites;
+
+	static GLuint LoadTextureFromFile(const std::string& file, bool gamma = false);
 };

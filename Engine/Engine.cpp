@@ -1,10 +1,9 @@
 #include "Engine.hpp"
 
-#include "Debug.hpp"
-
 Engine::Engine()
 {
     InitWindow();
+    Rendering::Init();
 
     Debug::Log("Succesfully initialized engine");
 }

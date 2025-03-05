@@ -18,7 +18,7 @@ public:
 		std::cout << text << "\n";
 	}
 
-	inline static void Log(const std::string text)
+	inline static void Log(const std::string& text)
 	{
 		PrintTime();
 		std::cout << text << "\n";
@@ -28,5 +28,11 @@ public:
 	{
 		PrintTime();
 		std::cout << "vec3(" << value.x << ", " << value.y << ", " << value.z << ")\n";
+	}
+
+	inline static void Log(const float& value)
+	{
+		PrintTime();
+		std::cout << value << "\n";
 	}
 };

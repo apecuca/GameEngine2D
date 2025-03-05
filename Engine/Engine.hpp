@@ -4,7 +4,7 @@
 #include <iostream>
 
 // Externa
-#include "GLFW/glfw3.h"
+#include "CommonInclude/CommonRender.hpp"
 
 // Engine classes
 #include "Window.hpp"

@@ -13,19 +13,20 @@ After that, just initialize the engine on the main function and have fun :)
 I'll start writing a very simple and straightforward documentation once basic physics, sound and UI support have been implemented.
 
 ### Todo
-This todo list is being updated as I think of new things to implement and progress on the project.
+This todo list is being updated as I think of new things to implement and progress on the project. I'll probably move this to a Trello board or something similar on the near future.
 
 ##### Engine management
 - [x] Realtime instancing and destruction of GameObjects
 - [x] Component system
 - [x] Level system
+- [ ] Class to deal with Time stuff (delta, program time, etc...)
 - [ ] Task
 
 ##### Renderization
 - [x] Shader rendering
 	- [ ] Custom render order
-	- [ ] Pooling system for textures
-	- [x] Texture (sprite) support
+	- [x] Pooling system for sprites
+	- [x] Sprite support
 		- [ ] Animation system
 
 ##### Physics

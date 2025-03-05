@@ -4,9 +4,10 @@
 #include <iostream>
 
 // External libraries
-#include "glad/glad.h"
+#include "../CommonInclude/CommonRender.hpp"
 #include "glm/glm.hpp"
 
+// Forward
 class GameObject;
 
 class Shader
@@ -19,7 +20,7 @@ public:
     ~Shader();
 
     // Bind shader ID
-    void Draw();
+    void Draw(const int& spriteId);
 
     // Compilation error checks
     static void CheckCompileErrors(GLuint shader, std::string type);
@@ -27,9 +28,6 @@ public:
     //
     // Shader utilities
     //
-
-    // Load texture from file
-    GLuint LoadTextureFromFile(const std::string& file, bool gamma = false);
 
     // Shader uniform functions
     void Use() const;
@@ -51,8 +49,6 @@ private:
     GLuint ID;
     // Buffers
     GLuint VAO, VBO, EBO;
-    // Texture
-    GLuint textureID;
 
     // Transformation matrices
     glm::mat4 viewMat, projMat, modelMat;

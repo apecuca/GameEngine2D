@@ -10,8 +10,7 @@ int RenderSource::nextCreationID = 0;
 
 RenderSource::RenderSource(GameObject& parent) :
 	Component(parent),
-	uniqueID { nextCreationID },
-	enabled { true }
+	uniqueID { nextCreationID }
 {
 	// UniqueID handling
 	nextCreationID++;
@@ -27,7 +26,7 @@ void RenderSource::Render()
 {
 	if (shader == NULL) return;
 	
-	shader->Draw();
+	shader->Draw(currentSpriteId);
 }
 
 void RenderSource::InitShader(const char* vertex, const char* fragment)
@@ -39,9 +38,4 @@ void RenderSource::InitShader(const char* vertex, const char* fragment)
 	}
 
 	shader = std::make_shared<Shader>(vertex, fragment, gameObject);
-}
-
-void RenderSource::AddSprite(const std::string& fileName, bool gamma)
-{
-	shader->LoadTextureFromFile(fileName, false);
 }

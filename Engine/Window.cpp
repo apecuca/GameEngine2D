@@ -1,8 +1,7 @@
 #include "Window.hpp"
 
 // Libraries
-#include <glad/glad.h>
-#include "GLFW/glfw3.h"
+#include "CommonInclude/CommonRender.hpp"
 
 // Standard
 #include "iostream"
