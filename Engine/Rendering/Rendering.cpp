@@ -1,5 +1,8 @@
 #include "Rendering.hpp"
 
+// Standard
+#include <algorithm>
+
 // Externals
 #include "stb_image.h"
 
@@ -50,7 +53,7 @@ int Rendering::PoolSprite(const char* fileName)
         LoadTextureFromFile(fileName, false));
 
     // Return id of the newly emplaced sprite
-    return (pooledSprites.size() - 1);
+    return static_cast<int>(pooledSprites.size() - 1);
 }
 
 GLuint Rendering::GetPooledSprite(const int& id)
@@ -64,10 +67,21 @@ GLuint Rendering::GetPooledSprite(const int& id)
 
 void Rendering::ClearSpritePool()
 {
-    for (int i = pooledSprites.size() - 1; i >= 0; i--)
+    for (int i = static_cast<int>(pooledSprites.size()) - 1; i >= 0; i--)
     {
         glDeleteTextures(1, &pooledSprites[i]);
     }
+}
+
+void Rendering::OnRenderOrderChanged()
+{
+    // std::sort's algorith sorts everything inside the vector
+    // In the future, I'll rewrite this with a custom algorith to sort
+    // only the changed source
+    std::sort(std::begin(renderSources), std::end(renderSources), 
+        [](const std::reference_wrapper<RenderSource> vecA, const std::reference_wrapper<RenderSource> vecB) -> bool {
+            return vecA.get().GetRenderOrder() < vecB.get().GetRenderOrder();
+        });
 }
 
 GLuint Rendering::LoadTextureFromFile(const std::string& file, bool gamma)

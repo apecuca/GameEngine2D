@@ -5,15 +5,9 @@
 #include "../Debug.hpp"
 #include "Shader.hpp"
 
-// Statics
-int RenderSource::nextCreationID = 0;
-
 RenderSource::RenderSource(GameObject& parent) :
-	Component(parent),
-	uniqueID { nextCreationID }
+	Component(parent)
 {
-	// UniqueID handling
-	nextCreationID++;
 	Rendering::AddRenderSource(*this);
 }
 
@@ -38,4 +32,10 @@ void RenderSource::InitShader(const char* vertex, const char* fragment)
 	}
 
 	shader = std::make_shared<Shader>(vertex, fragment, gameObject);
+}
+
+void RenderSource::SetRenderOrder(const int& value)
+{
+	renderOrder = value;
+	Rendering::OnRenderOrderChanged();
 }

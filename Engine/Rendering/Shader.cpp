@@ -119,7 +119,7 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile, GameObject& _pa
 
     // Extra
     Use();
-    SetVec4("color", 1.0f, 1.0f, 1.0f, 0.5f); // Sprite color
+    SetVec4("color", 1.0f, 1.0f, 1.0f, 1.0f); // Sprite color
     SetInt("sprite", 0); // Set sampler2D's texture unit (GL_TEXTURE0)
 }
 

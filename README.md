@@ -24,7 +24,7 @@ This todo list is being updated as I think of new things to implement and progre
 
 ##### Renderization
 - [x] Shader rendering
-	- [ ] Custom render order
+	- [x] Custom render order (improve sorting algorith)
 	- [x] Pooling system for sprites
 	- [x] Sprite support
 		- [ ] Animation system

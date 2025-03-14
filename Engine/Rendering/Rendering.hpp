@@ -33,6 +33,10 @@ public:
 
 	static void ClearSpritePool();
 
+	// Called when a rendering order is changed, don't call this manually
+	static void OnRenderOrderChanged();
+
+
 private:
 	// Avoids object creation
 	Rendering();

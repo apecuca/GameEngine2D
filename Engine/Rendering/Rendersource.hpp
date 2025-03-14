@@ -33,17 +33,20 @@ public:
 	void InitShader(const char* vertex, const char* fragment);
 
 	// Extra details
-	bool enabled = true;
+	bool enabled {true};
 
 	// This will be moved to another place
-	int currentSpriteId = 0;
+	int currentSpriteId {0};
 
-protected:
-	// Unique Identifier
-	int uniqueID;
-	static int nextCreationID;
+	// 
+	// Render order stuff
+	//
+
+	void SetRenderOrder(const int& value);
+	inline int GetRenderOrder() const { return renderOrder; }
 
 private:
 	std::shared_ptr<Shader> shader;
+	int renderOrder {0};
 
 }; // Class
