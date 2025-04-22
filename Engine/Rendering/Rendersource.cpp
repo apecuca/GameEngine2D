@@ -8,12 +8,12 @@
 RenderSource::RenderSource(GameObject& parent) :
 	Component(parent)
 {
-	Rendering::AddRenderSource(*this);
+	Rendering::AddRenderSource(this);
 }
 
 RenderSource::~RenderSource()
 {
-	Rendering::RemoveRenderSource(*this);
+	Rendering::RemoveRenderSource(this);
 }
 
 void RenderSource::Render()
@@ -25,7 +25,7 @@ void RenderSource::Render()
 
 void RenderSource::InitShader(const char* vertex, const char* fragment)
 {
-	if (shader != NULL)
+	if (shader != nullptr)
 	{
 		Debug::Log("Shader already initialized!");
 		return;

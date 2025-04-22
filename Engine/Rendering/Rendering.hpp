@@ -19,9 +19,9 @@ public:
 	static void Render();
 
 	// Add a new render source
-	static void AddRenderSource(RenderSource& source);
+	static void AddRenderSource(RenderSource* source);
 	// Remove a render source
-	static void RemoveRenderSource(RenderSource& source);
+	static void RemoveRenderSource(RenderSource* source);
 
 	//
 	// Sprite pooling
@@ -42,7 +42,7 @@ private:
 	Rendering();
 
 	// Renderer list
-	static std::vector<std::reference_wrapper<RenderSource>> renderSources;
+	static std::vector<RenderSource*> renderSources;
 
 	// List with id of pooled textures
 	static std::vector<GLuint> pooledSprites;

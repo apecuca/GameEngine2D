@@ -1,9 +1,6 @@
 #include "GameObject.hpp"
 
-int GameObject::nextCreationID = 0;
-
-GameObject::GameObject() :
-	uniqueID{ nextCreationID }
+GameObject::GameObject()
 {
 	nextCreationID++;
 	this->SetRotation(glm::vec3(0.0f, 0.0f, 0.0f));

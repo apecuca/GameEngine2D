@@ -17,17 +17,8 @@ public:
 	RenderSource(GameObject& parent);
 	~RenderSource();
 
-	// Comparison operation
-	bool operator == (const RenderSource& other) const
-	{
-		return (other.GetUniqueID() == this->GetUniqueID());
-	}
-
 	// Render call for sources, don't call this manually!!
 	void Render();
-
-	// UniqueID getter
-	inline int GetUniqueID() const { return uniqueID; }
 
 	// Initialize shader for this render source
 	void InitShader(const char* vertex, const char* fragment);
