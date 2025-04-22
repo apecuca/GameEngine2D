@@ -9,7 +9,18 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project ("GameEngine2D")
+# Variables
+set(EXECUTABLE_NAME GameEngine2D)
+
+project (${EXECUTABLE_NAME}
+	 LANGUAGES CXX)
+
+#
+# Config language
+#
+set(CMAKE_CXX_STANDARD			17)
+set(CMAKE_CXX_STANDARD_REQUIRED	ON)
+set(CMAKE_CXX_EXTENSIONS		OFF)
 
 # Find libraries
 find_package (glfw3 3.3 REQUIRED)
@@ -23,18 +34,21 @@ file (GLOB_RECURSE gameSources Game/*.cpp Game/*.hpp)
 file (GLOB_RECURSE engineSources Engine/*.cpp Engine/*.hpp)
 
 # Add the data to the project.
-add_executable(GameEngine2D ${gameSources} ${engineSources})
+# Windows add_executable, used with Windows entry point in main
+# add_executable(GameEngine2D WIN32 ${gameSources} ${engineSources})
+add_executable(${EXECUTABLE_NAME} ${gameSources} ${engineSources})
 
 # Link libraries
-target_link_libraries(GameEngine2D PUBLIC
+target_link_libraries(${EXECUTABLE_NAME} PUBLIC
 	glfw 
 	OpenGL::GL
 	glad::glad
 	glm::glm
 	${Stb_INCLUDE_DIR})
 
+
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-	set_property(TARGET GameEngine2D PROPERTY CXX_STANDARD 20)
+	set_property(TARGET ${EXECUTABLE_NAME} PROPERTY CXX_STANDARD 20)
 endif()
 
 # TODO: Add tests and install targets if needed.
