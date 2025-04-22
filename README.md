@@ -27,6 +27,8 @@ This todo list is being updated as I think of new things to implement and progre
 	- [x] Custom render order (improve sorting algorith)
 	- [x] Pooling system for sprites
 	- [x] Sprite support
+		- [ ] Sprite ratio same as original image
+		- [ ] Custom color
 		- [ ] Animation system
 
 ##### Physics
