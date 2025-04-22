@@ -44,6 +44,8 @@ I still haven't thought about this xd
 ##### Extras
 - [x] Change the shader's pointer from shared to unique
 	- [ ] Function to return reference
+- [x] Rewrite object, level and component instanciation logic
+- [ ] Add engine as a library in main cmakelists, instead of including all files directly in the .exe
 
 ### Technologies and libraries used
 C++ https://learn.microsoft.com/en-us/cpp/?view=msvc-170 </br>

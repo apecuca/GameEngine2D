@@ -1,17 +1,11 @@
 #include "Component.hpp"
 
-int Component::nextCreationID = 0;
-
-Component::Component(GameObject& parent) :
+Component::Component(GameObject& parent) : Entity(),
 	gameObject{ parent },
-	uniqueID{ nextCreationID },
 	enabled{ true }
 {
-	// UniqueID handling
-	nextCreationID++;
+	//
 }
-
-void Component::Update() {}
 
 //
 // Generic component

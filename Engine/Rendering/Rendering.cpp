@@ -10,7 +10,7 @@
 #include "../Debug.hpp"
 
 // Statics
-std::vector<std::reference_wrapper<RenderSource>> Rendering::renderSources;
+std::vector<RenderSource*> Rendering::renderSources;
 std::vector<GLuint> Rendering::pooledSprites;
 
 void Rendering::Init()
@@ -24,18 +24,18 @@ void Rendering::Render()
 	// Render all enabled sources
 	for (int i = 0; i < renderSources.size(); i++)
 	{
-		if (!renderSources.at(i).get().enabled) continue;
+		if (!renderSources.at(i)->enabled) continue;
 
-		renderSources.at(i).get().Render();
+		renderSources.at(i)->Render();
 	}
 }
 
-void Rendering::AddRenderSource(RenderSource& source)
+void Rendering::AddRenderSource(RenderSource* source)
 {
 	renderSources.emplace_back(source);
 }
 
-void Rendering::RemoveRenderSource(RenderSource& source)
+void Rendering::RemoveRenderSource(RenderSource* source)
 {
 	for (int i = 0; i < renderSources.size(); i++)
 	{
@@ -79,8 +79,8 @@ void Rendering::OnRenderOrderChanged()
     // In the future, I'll rewrite this with a custom algorith to sort
     // only the changed source
     std::sort(std::begin(renderSources), std::end(renderSources), 
-        [](const std::reference_wrapper<RenderSource> vecA, const std::reference_wrapper<RenderSource> vecB) -> bool {
-            return vecA.get().GetRenderOrder() < vecB.get().GetRenderOrder();
+        [](const RenderSource* vecA, const RenderSource* vecB) -> bool {
+            return vecA->GetRenderOrder() < vecB->GetRenderOrder();
         });
 }
 

@@ -5,27 +5,30 @@ void Level::OnLevelInit()
     //
 }
 
-GameObject& Level::InstantiateObject()
+GameObject* Level::InstantiateObject()
 {
     if (instantiatedObjs.size() - 1 >= instantiatedObjs.capacity())
     {
         instantiatedObjs.reserve(30);
     }
 
-    instantiatedObjs.emplace_back();
+    instantiatedObjs.push_back(std::make_unique<GameObject>());
 
-    return instantiatedObjs.back();
+    return instantiatedObjs.back().get();
 }
 
-void Level::DestroyObject(GameObject& obj)
+bool Level::DestroyObject(GameObject* obj)
 {
     for (int i = 0; i < GetObjectCount(); i++)
     {
-        if (instantiatedObjs.at(i) != obj)
+        if (instantiatedObjs.at(i).get() != obj)
             continue;
 
         instantiatedObjs.erase(instantiatedObjs.begin() + i);
+        return true;
     }
+
+    return false;
 }
 
 void Level::UpdateLevel()
@@ -35,7 +38,7 @@ void Level::UpdateLevel()
 
     // Update instantiated objects behaviour
     for (int i = 0; i < instantiatedObjs.size(); i++)
-        instantiatedObjs.at(i).UpdateBehaviour();
+        instantiatedObjs.at(i)->UpdateBehaviour();
 }
 
 void Level::CustomUpdate()

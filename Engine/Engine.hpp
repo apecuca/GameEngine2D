@@ -22,13 +22,13 @@ public:
 	Engine();
 	~Engine() = default;
 
-	// Main parts of the engine
-	std::unique_ptr<Window> window;
-
 	// Run main thread, don't call this
 	void Run();
 
 private:
 	// Initialize Engine's single Window, don't call this
 	void InitWindow();
+
+	// Main parts of the engine
+	std::unique_ptr<Window> window;
 };

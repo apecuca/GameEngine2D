@@ -9,17 +9,17 @@ class Level
 public:
 	// Avoid allocating or de-allocating memory on the constructor, please
 	Level() = default;
-	~Level() = default;
+	virtual ~Level() = default;
 
 	// Function called on level instanciation
 	virtual void OnLevelInit();
 
 	// Instanciates and returns a reference of the new object
-	GameObject& InstantiateObject();
+	GameObject* InstantiateObject();
 	// Destroy an object
-	void DestroyObject(GameObject& obj);
+	bool DestroyObject(GameObject* obj);
 	// Returns the instanciated objects count
-	inline int GetObjectCount() { return static_cast<int>(instantiatedObjs.size()); }
+	inline size_t GetObjectCount() { return static_cast<int>(instantiatedObjs.size()); }
 
 	// Level's main function, called every loop
 	void UpdateLevel();
@@ -27,7 +27,7 @@ public:
 	// Custom update for derived levels, called every loop
 	virtual void CustomUpdate();
 
-protected:
+public:
 	// List of instantiated objects in the current level
-	std::vector<GameObject> instantiatedObjs;
+	std::vector<std::unique_ptr<GameObject>> instantiatedObjs;
 };
