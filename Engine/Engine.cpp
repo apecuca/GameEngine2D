@@ -21,6 +21,10 @@ void Engine::Run()
         /* Poll for and process events */
         window->PollEvents();
 
+        // Update engine stuff
+        Time::UpdateVariables();
+
+        // Update behaviours
         LevelManager::UpdateCall();
 
         // Clear window for render

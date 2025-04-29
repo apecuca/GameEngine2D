@@ -18,8 +18,8 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile, GameObject& _pa
     gameObject { _parent }
 {
     // Path translation
-    std::string vertexPath = "../Shaders/" + static_cast<std::string>(vertexFile);
-    std::string fragmentPath = "../Shaders/" + static_cast<std::string>(fragmentFile);
+    std::string vertexPath = "Resources/Shaders/" + static_cast<std::string>(vertexFile);
+    std::string fragmentPath = "Resources/Shaders/" + static_cast<std::string>(fragmentFile);
 
     // 1. retrieve the vertex/fragment source code from filePath
     std::string vertexCode;

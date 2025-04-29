@@ -14,6 +14,7 @@
 #include "Debug.hpp"
 #include "Level/Level.hpp"
 #include "Level/LevelManager.hpp"
+#include "Managers/Time.hpp"
 
 class Engine
 {

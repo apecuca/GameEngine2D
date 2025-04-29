@@ -31,7 +31,7 @@ void RenderSource::InitShader(const char* vertex, const char* fragment)
 		return;
 	}
 
-	shader = std::make_shared<Shader>(vertex, fragment, gameObject);
+	shader = std::make_unique<Shader>(vertex, fragment, gameObject);
 }
 
 void RenderSource::SetRenderOrder(const int& value)

@@ -86,7 +86,7 @@ void Rendering::OnRenderOrderChanged()
 
 GLuint Rendering::LoadTextureFromFile(const std::string& file, bool gamma)
 {
-    std::string filePath = "../Resources/" + file;
+    std::string filePath = "Resources/Images/" + file;
 
     GLuint textureID;
 

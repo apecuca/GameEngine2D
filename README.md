@@ -18,8 +18,9 @@ This todo list is being updated as I think of new things to implement and progre
 ##### Engine management
 - [x] Realtime instancing and destruction of GameObjects
 - [x] Component system
+	- [x] Refactor system
 - [x] Level system
-- [ ] Class to deal with Time stuff (delta, program time, etc...)
+- [x] Class to deal with Time stuff (delta, program time, etc...)
 - [ ] Task
 
 ##### Renderization
@@ -45,7 +46,7 @@ I still haven't thought about this xd
 
 ##### Extras
 - [x] Change the shader's pointer from shared to unique
-	- [ ] Function to return reference
+	- [~] Function to return raw pointer
 - [x] Rewrite object, level and component instanciation logic
 - [ ] Add engine as a library in main cmakelists, instead of including all files directly in the .exe
 

@@ -37,7 +37,7 @@ public:
 	inline int GetRenderOrder() const { return renderOrder; }
 
 private:
-	std::shared_ptr<Shader> shader;
+	std::unique_ptr<Shader> shader;
 	int renderOrder {0};
 
 }; // Class

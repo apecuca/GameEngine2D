@@ -46,6 +46,13 @@ target_link_libraries(${EXECUTABLE_NAME} PUBLIC
 	glm::glm
 	${Stb_INCLUDE_DIR})
 
+add_custom_command(
+	TARGET ${EXECUTABLE_NAME} PRE_LINK
+	COMMAND ${CMAKE_COMMAND} -E copy_directory
+	"${CMAKE_CURRENT_SOURCE_DIR}/Resources/"
+	"$<TARGET_FILE_DIR:${EXECUTABLE_NAME}>/Resources"
+	COMMENT "Copying directory <source_directory> to <destination_directory>"
+)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
 	set_property(TARGET ${EXECUTABLE_NAME} PROPERTY CXX_STANDARD 20)
