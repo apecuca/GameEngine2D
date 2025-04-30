@@ -21,6 +21,7 @@ This todo list is being updated as I think of new things to implement and progre
 	- [x] Refactor system
 - [x] Level system
 - [x] Class to deal with Time stuff (delta, program time, etc...)
+- [ ] Class to deal with Input
 - [ ] Task
 
 ##### Renderization
@@ -28,8 +29,9 @@ This todo list is being updated as I think of new things to implement and progre
 	- [x] Custom render order (improve sorting algorith)
 	- [x] Pooling system for sprites
 	- [x] Sprite support
-		- [ ] Sprite ratio same as original image
-		- [ ] Custom color
+		- [x] Add support to the sprite class on rendering manager
+		- [x] Sprite ratio same as original image (pixelsPerUnit)
+		- [x] Custom color
 		- [ ] Animation system
 
 ##### Physics

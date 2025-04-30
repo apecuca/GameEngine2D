@@ -7,6 +7,8 @@
 // Engine classes
 #include "../Behaviour/Component.hpp"
 
+#include "glm/glm.hpp"
+
 // Forward declaration
 class Shader;
 
@@ -15,7 +17,7 @@ class RenderSource : public Component
 public:
 	// Default constructor and destructor
 	RenderSource(GameObject& parent);
-	~RenderSource();
+	virtual ~RenderSource();
 
 	// Render call for sources, don't call this manually!!
 	void Render();
@@ -23,18 +25,19 @@ public:
 	// Initialize shader for this render source
 	void InitShader(const char* vertex, const char* fragment);
 
-	// Extra details
-	bool enabled {true};
-
-	// This will be moved to another place
-	int currentSpriteId {0};
-
 	// 
 	// Render order stuff
 	//
 
 	void SetRenderOrder(const int& value);
 	inline int GetRenderOrder() const { return renderOrder; }
+
+public:
+	// This will be moved to another place
+	int currentSpriteId{ 0 };
+
+	// Color in which the sprite will be rendered
+	glm::vec4 color;
 
 private:
 	std::unique_ptr<Shader> shader;

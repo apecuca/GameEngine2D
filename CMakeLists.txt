@@ -48,7 +48,7 @@ target_link_libraries(${EXECUTABLE_NAME} PUBLIC
 
 add_custom_command(
 	TARGET ${EXECUTABLE_NAME} PRE_LINK
-	COMMAND ${CMAKE_COMMAND} -E copy_directory
+	COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
 	"${CMAKE_CURRENT_SOURCE_DIR}/Resources/"
 	"$<TARGET_FILE_DIR:${EXECUTABLE_NAME}>/Resources"
 	COMMENT "Copying directory <source_directory> to <destination_directory>"

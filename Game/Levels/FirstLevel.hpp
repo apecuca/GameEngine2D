@@ -13,11 +13,9 @@ public:
 
 	void OnLevelInit() override
 	{
-		player = LevelManager::Instantiate();
-		RenderSource* rnd = player->AddComponent<RenderSource>();
+		rnd = LevelManager::Instantiate()->AddComponent<RenderSource>();
 		rnd->InitShader("b_sprite.vert", "b_sprite.frag"); // Initializes the shader (vertex and fragment)
-		rnd->SetRenderOrder(playerRenderOrder);
-		rnd->currentSpriteId = Rendering::PoolSprite("Lupi.png"); // Update the current sprite to render
+		rnd->currentSpriteId = Rendering::PoolSprite("Lupi.png", 688.5); // Update the current sprite to render
 	};
 
 	void CustomUpdate() override
@@ -26,7 +24,6 @@ public:
 	};
 
 private:
-	GameObject* player;
-	int playerRenderOrder{ 0 };
+	RenderSource* rnd;
 	float timer;
 };

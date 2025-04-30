@@ -137,10 +137,12 @@ Shader::~Shader()
 //
 
 // activate the shader
-void Shader::Draw(const int& spriteId)
+void Shader::Draw(const int spriteId)
 {
     // Bind program
     Use();
+
+    Sprite* currentSprite = Rendering::GetPooledSprite(spriteId);
 
     float aspect = (float)Window::width / (float)Window::height;
     float fov = 5.0f;
@@ -158,12 +160,17 @@ void Shader::Draw(const int& spriteId)
             glm::radians(glm::length(gameObject.rotation)),
             glm::normalize(gameObject.rotation));
     }
+    // Sprite size
+    glm::vec3 spriteSize = glm::vec3(currentSprite->getSize(), 1.0f) / currentSprite->pixelsPerUnit;
+    spriteSize.z = 1.0f;
+    modelMat = glm::scale(modelMat, spriteSize);
+    // GameObject scale
     modelMat = glm::scale(modelMat, gameObject.scale);
     SetMat4("model", modelMat);
 
     // Textures
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, Rendering::GetPooledSprite(spriteId));
+    glBindTexture(GL_TEXTURE_2D, currentSprite->getTexID());
 
     // Bind VAO and draw call
     glBindVertexArray(VAO);

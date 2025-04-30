@@ -20,7 +20,7 @@ public:
     ~Shader();
 
     // Bind shader ID
-    void Draw(const int& spriteId);
+    void Draw(const int spriteId);
 
     // Compilation error checks
     static void CheckCompileErrors(GLuint shader, std::string type);
@@ -53,7 +53,7 @@ private:
     // Transformation matrices
     glm::mat4 viewMat, projMat, modelMat;
 
-    //
+    // GameObject this shader is attached to
     GameObject& gameObject;
     
 };

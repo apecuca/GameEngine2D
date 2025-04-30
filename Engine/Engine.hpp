@@ -30,6 +30,7 @@ private:
 	// Initialize Engine's single Window, don't call this
 	void InitWindow();
 
+private:
 	// Main parts of the engine
 	std::unique_ptr<Window> window;
 };

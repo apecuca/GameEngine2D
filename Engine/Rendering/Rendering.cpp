@@ -11,12 +11,12 @@
 
 // Statics
 std::vector<RenderSource*> Rendering::renderSources;
-std::vector<GLuint> Rendering::pooledSprites;
+std::vector<std::unique_ptr<Sprite>> Rendering::pooledSprites;
 
 void Rendering::Init()
 {
     // Pool default sprite
-    PoolSprite("Default.png");
+    PoolSprite("Default.png", 32);
 }
 
 void Rendering::Render()
@@ -46,31 +46,29 @@ void Rendering::RemoveRenderSource(RenderSource* source)
 	}
 }
 
-int Rendering::PoolSprite(const char* fileName)
+int Rendering::PoolSprite(const char* fileName, float pixelsPerUnit)
 {
     // Emplace the new sprite id on the back
-    pooledSprites.emplace_back(
-        LoadTextureFromFile(fileName, false));
+    pooledSprites.push_back(
+        std::make_unique<Sprite>(fileName, pixelsPerUnit));
+        //LoadTextureFromFile(fileName, false));
 
     // Return id of the newly emplaced sprite
     return static_cast<int>(pooledSprites.size() - 1);
 }
 
-GLuint Rendering::GetPooledSprite(const int& id)
+Sprite* Rendering::GetPooledSprite(const int& id)
 {
     // If it's not a valid ID, return default texture
     if (id >= pooledSprites.size() || id < 0)
         return 0;
 
-    return pooledSprites[id];
+    return pooledSprites[id].get();
 }
 
 void Rendering::ClearSpritePool()
 {
-    for (int i = static_cast<int>(pooledSprites.size()) - 1; i >= 0; i--)
-    {
-        glDeleteTextures(1, &pooledSprites[i]);
-    }
+    pooledSprites.clear();
 }
 
 void Rendering::OnRenderOrderChanged()
@@ -82,50 +80,4 @@ void Rendering::OnRenderOrderChanged()
         [](const RenderSource* vecA, const RenderSource* vecB) -> bool {
             return vecA->GetRenderOrder() < vecB->GetRenderOrder();
         });
-}
-
-GLuint Rendering::LoadTextureFromFile(const std::string& file, bool gamma)
-{
-    std::string filePath = "Resources/Images/" + file;
-
-    GLuint textureID;
-
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    stbi_set_flip_vertically_on_load(true);
-
-    int width, height, nrComponents;
-    unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nrComponents, 0);
-    if (data)
-    {
-        GLenum format = GL_RGB;
-        if (nrComponents == 1)
-            format = GL_RED;
-        else if (nrComponents == 3)
-            format = GL_RGB;
-        else if (nrComponents == 4)
-            format = GL_RGBA;
-        else Debug::Log("Unsupported format type");
-
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cout << "Texture failed to load at path: " << filePath << std::endl;
-    }
-
-    // Unbind textura
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    // Free space
-    stbi_image_free(data);
-
-    return textureID;
 }

@@ -10,15 +10,14 @@ public:
 	Window();
 	~Window();
 
-	// Window size, DON'T CHANGE VALUES IT WILL BREAK
-	static int width, height;
 	// Controls if main loop should close
 	bool shouldClose();
 
 	// Reference to pointer to the Window
-	GLFWwindow& GetCurrentWindow() { return *windowPtr; };
+	static GLFWwindow* GetCurrentWindow() { return windowPtr; };
 
 	// Main loop stuff
+	
 	// Clear main window and fill with basic color
 	void ClearWindow();
 	// Swap between video buffers
@@ -26,9 +25,13 @@ public:
 	// Poll IO events
 	void PollEvents();
 
+public:
+	// Window size, DON'T CHANGE VALUES IT WILL BREAK
+	static int width, height;
+
 private:
 	// Pointer to the main GLFWwindow
-	GLFWwindow* windowPtr;
+	static GLFWwindow* windowPtr;
 	
 	// Callbacks
 	static void callback_error(int error_code, const char* description);

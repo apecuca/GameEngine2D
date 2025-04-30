@@ -8,6 +8,7 @@
 
 // Engine
 #include "Rendersource.hpp"
+#include "Sprite.hpp"
 
 class Rendering
 {
@@ -27,9 +28,9 @@ public:
 	// Sprite pooling
 	//
 
-	static int PoolSprite(const char* fileName);
+	static int PoolSprite(const char* fileName, float pixelsPerUnit);
 
-	static GLuint GetPooledSprite(const int& id);
+	static Sprite* GetPooledSprite(const int& id);
 
 	static void ClearSpritePool();
 
@@ -45,7 +46,5 @@ private:
 	static std::vector<RenderSource*> renderSources;
 
 	// List with id of pooled textures
-	static std::vector<GLuint> pooledSprites;
-
-	static GLuint LoadTextureFromFile(const std::string& file, bool gamma = false);
+	static std::vector<std::unique_ptr<Sprite>> pooledSprites;
 };

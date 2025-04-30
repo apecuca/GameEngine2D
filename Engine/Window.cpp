@@ -7,6 +7,7 @@
 #include "iostream"
 
 int Window::height, Window::width;
+GLFWwindow* Window::windowPtr;
 
 Window::Window()
 {

@@ -5,8 +5,8 @@
 #include "../Debug.hpp"
 #include "Shader.hpp"
 
-RenderSource::RenderSource(GameObject& parent) :
-	Component(parent)
+RenderSource::RenderSource(GameObject& parent) : Component(parent),
+	color(glm::vec4(1.0f))
 {
 	Rendering::AddRenderSource(this);
 }
@@ -20,6 +20,9 @@ void RenderSource::Render()
 {
 	if (shader == NULL) return;
 	
+	// Update shader settings
+	shader->SetVec4("color", color);
+
 	shader->Draw(currentSpriteId);
 }
 
