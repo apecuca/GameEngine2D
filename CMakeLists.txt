@@ -18,33 +18,24 @@ project (${EXECUTABLE_NAME}
 #
 # Config language
 #
-set(CMAKE_CXX_STANDARD			17)
+set(CMAKE_CXX_STANDARD			20)
 set(CMAKE_CXX_STANDARD_REQUIRED	ON)
 set(CMAKE_CXX_EXTENSIONS		OFF)
 
-# Find libraries
-find_package (glfw3 3.3 REQUIRED)
-find_package (OpenGL REQUIRED)
-find_package (glad REQUIRED)
-find_package (glm REQUIRED)
-find_package (Stb REQUIRED)
-
 # Game and Engine source files
+add_subdirectory(Engine)
 file (GLOB_RECURSE gameSources Game/*.cpp Game/*.hpp)
-file (GLOB_RECURSE engineSources Engine/*.cpp Engine/*.hpp)
 
 # Add the data to the project.
 # Windows add_executable, used with Windows entry point in main
 # add_executable(GameEngine2D WIN32 ${gameSources} ${engineSources})
-add_executable(${EXECUTABLE_NAME} ${gameSources} ${engineSources})
+add_executable(${EXECUTABLE_NAME} ${gameSources})
+
+# Include source dir to target
+target_include_directories(${EXECUTABLE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}) 
 
 # Link libraries
-target_link_libraries(${EXECUTABLE_NAME} PUBLIC
-	glfw 
-	OpenGL::GL
-	glad::glad
-	glm::glm
-	${Stb_INCLUDE_DIR})
+target_link_libraries(${EXECUTABLE_NAME} PUBLIC Engine)
 
 add_custom_command(
 	TARGET ${EXECUTABLE_NAME} PRE_LINK
@@ -57,5 +48,3 @@ add_custom_command(
 if (CMAKE_VERSION VERSION_GREATER 3.12)
 	set_property(TARGET ${EXECUTABLE_NAME} PROPERTY CXX_STANDARD 20)
 endif()
-
-# TODO: Add tests and install targets if needed.

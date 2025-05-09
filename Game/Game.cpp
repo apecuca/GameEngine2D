@@ -1,6 +1,6 @@
 #include "Game.hpp"
 
-#include "../Engine/Engine.hpp"
+#include "Engine/src/Engine.hpp"
 #include "Levels/FirstLevel.hpp"
 
 Game::Game()
