@@ -21,7 +21,7 @@ This todo list is being updated as I think of new things to implement and progre
 	- [x] Refactor system
 - [x] Level system
 - [x] Class to deal with Time stuff (delta, program time, etc...)
-- [ ] Class to deal with Input
+- [x] Class to deal with Input
 - [ ] Task
 
 ##### Renderization
