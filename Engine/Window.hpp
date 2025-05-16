@@ -22,8 +22,6 @@ public:
 	void ClearWindow();
 	// Swap between video buffers
 	void SwapBuffers();
-	// Poll IO events
-	void PollEvents();
 
 public:
 	// Window size, DON'T CHANGE VALUES IT WILL BREAK

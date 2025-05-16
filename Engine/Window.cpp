@@ -77,11 +77,6 @@ void Window::SwapBuffers()
 	glfwSwapBuffers(windowPtr);
 }
 
-void Window::PollEvents()
-{
-	glfwPollEvents();
-}
-
 bool Window::shouldClose()
 {
 	return glfwWindowShouldClose(windowPtr);

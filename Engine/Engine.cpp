@@ -4,6 +4,7 @@ Engine::Engine()
 {
     InitWindow();
     Rendering::Init();
+    Input::InitInput(window->GetCurrentWindow());
 
     Debug::Log("Succesfully initialized engine");
 }
@@ -18,11 +19,9 @@ void Engine::Run()
 {
     while (!window->shouldClose())
     {
-        /* Poll for and process events */
-        window->PollEvents();
-
         // Update engine stuff
         Time::UpdateVariables();
+        Input::UpdateInput();
 
         // Update behaviours
         LevelManager::UpdateCall();

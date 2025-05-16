@@ -48,7 +48,6 @@ I still haven't thought about this xd
 
 ##### Extras
 - [x] Change the shader's pointer from shared to unique
-	- [~] Function to return raw pointer
 - [x] Rewrite object, level and component instanciation logic
 - [x] Add engine as a library in main cmakelists, instead of including all files directly in the .exe
 
