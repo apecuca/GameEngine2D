@@ -8,14 +8,21 @@
 
 // Engine classes
 #include "Window.hpp"
+
 #include "Rendering/Rendering.hpp"
 #include "Rendering/Rendersource.hpp"
 #include "Behaviour/GameObject.hpp"
+
 #include "Debug.hpp"
+
 #include "Level/Level.hpp"
 #include "Level/LevelManager.hpp"
+
 #include "Managers/Time.hpp"
 #include "Managers/Input.hpp"
+
+#include "Animation/Animation.hpp"
+#include "Animation/Animator.hpp"
 
 class Engine
 {

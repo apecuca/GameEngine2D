@@ -17,17 +17,14 @@ public:
 		RenderSource* rnd = player->AddComponent<RenderSource>();
 		rnd->InitShader("b_sprite.vert", "b_sprite.frag"); // Initializes the shader (vertex and fragment)
 		rnd->currentSpriteId = Rendering::PoolSprite("Lupi.png", 688.5); // Update the current sprite to render
+
+		Animator* anim = player->AddComponent<Animator>();
 	};
 
 	void CustomUpdate() override
 	{
 		player->position.x += Input::horizontal * mvSpeed * Time::deltaTime;
 		player->position.y += Input::vertical * mvSpeed * Time::deltaTime;
-
-		if (Input::GetKeyDown(GLFW_KEY_A))
-			Debug::Log("Key pressed!");
-		if (Input::GetKeyUp(GLFW_KEY_A))
-			Debug::Log("Key released!");
 	};
 
 private:

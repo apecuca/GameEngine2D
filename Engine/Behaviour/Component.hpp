@@ -27,6 +27,7 @@ public:
 
 class GenericComponent : public Component
 {
+public:
 	GenericComponent(GameObject& parent);
 	~GenericComponent() = default;
 

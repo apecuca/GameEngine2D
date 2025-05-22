@@ -21,8 +21,6 @@ void Input::InitInput(GLFWwindow* window)
 	glfwSetKeyCallback(winRef, callback_keyboard);
 }
 
-
-
 void Input::UpdateInput()
 {
 	keysPressedThisFrame.clear();

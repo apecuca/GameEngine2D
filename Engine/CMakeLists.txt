@@ -1,8 +1,10 @@
 project(Engine)
 
-file (GLOB_RECURSE engineSources *.cpp *.hpp)
+file (GLOB_RECURSE ENGINE_SOURCES 
+	"${PROJECT_SOURCE_DIR}/*.cpp" 
+	"${PROJECT_SOURCE_DIR}/*.hpp")
 
-add_library(Engine ${engineSources})
+add_library(Engine ${ENGINE_SOURCES})
 
 # Find libraries
 find_package (glfw3 3.3 REQUIRED)

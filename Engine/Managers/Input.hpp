@@ -17,7 +17,6 @@ public:
 public:
 	static void InitInput(GLFWwindow* window);
 	static void UpdateInput();
-	static void ClearInputFrame();
 	/// Retorna se o Input está sendo pressionado.
 	static bool GetKey(int key);
 	/// Retorna se o Input foi pressionado no frame atual.
