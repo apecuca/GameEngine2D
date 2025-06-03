@@ -65,7 +65,8 @@ public:
 			return dynamic_cast<T*>(components[i].get());
 		}
 
-		throw std::string("No component of type found in object");
+		//throw std::string("No component of type found in object");
+		return nullptr;
 	}
 
 private:

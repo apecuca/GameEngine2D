@@ -12,7 +12,8 @@ public:
 	const float frameTime;
 };
 
-class Animation {
+class Animation 
+{
 public:
 	Animation() = default;
 	~Animation() = default;
@@ -22,6 +23,8 @@ public:
 
 public:
 	void AddFrame(const int spriteId, const float frameTime);
+	const AnimFrame& GetStep(size_t index) const;
+	inline size_t StepCount() const { return steps.size(); }
 	void Clear();
 
 private:

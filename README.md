@@ -32,18 +32,21 @@ This todo list is being updated as I think of new things to implement and progre
 		- [x] Add support to the sprite class on rendering manager
 		- [x] Sprite ratio same as original image (pixelsPerUnit)
 		- [x] Custom color
-		- [ ] Animation system
+		- [x] Animation system
+			- [x] Animation switching
+				- [ ] Based on conditions? Perhaps
+			- [ ] Animation events
 
 ##### Physics
 For physics, I'll be using the Box2D (https://box2d.org/) library, a free physics engine
 - [ ] Initialize API
 
 ##### UI
-For UI support, I'll plan on using Dear ImGui, since it has a lot of functionalities and it's very simple to implement and customize.
+For UI support, I'll plan on using Dear ImGui, since it has a lot of functionalities and it's very simple to implement and customize
 - [ ] Task
 
 ##### Sound
-I still haven't thought about this xd
+For sound, I'm still deciding on whether to use sdl2-mixer, miniaudio or SoLoud. I'll probably go with miniaudio for it's customizability and compatibility with vcpkg
 - [ ] Task
 
 ##### Extras

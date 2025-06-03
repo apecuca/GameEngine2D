@@ -1,8 +1,11 @@
 #pragma once
 
 #include "../Behaviour/Component.hpp"
-#include "Animation.hpp"
 #include <memory>
+#include <vector>
+
+class RenderSource;
+class Animation;
 
 enum AnimatorState 
 {
@@ -16,11 +19,21 @@ public:
 	Animator(GameObject& parent);
 	~Animator() = default;
 
+public:
 	void Update() override;
 
-	void SetAnimation(Animation& _animation);
+	size_t AddAnimation(Animation& animation);
+	void SetAnimation(const size_t index);
 
 public:
-	std::unique_ptr<Animation> animation;
 	AnimatorState state;
+
+private:
+	std::vector< std::unique_ptr<Animation> > animations;
+
+	size_t currentStep = 0;
+	float stepTimer = 0.0f;
+	Animation* curAnimation = nullptr;
+
+	RenderSource* rnd = nullptr;
 };

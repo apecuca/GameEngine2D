@@ -144,6 +144,10 @@ void Shader::Draw(const int spriteId)
 
     Sprite* currentSprite = Rendering::GetPooledSprite(spriteId);
 
+    // Update sprite's size on shader
+    SetIVec2("texSize", currentSprite->getSize());
+
+    // Proj and view matrix
     float aspect = (float)Window::width / (float)Window::height;
     float fov = 5.0f;
     projMat = glm::ortho(-aspect * fov, aspect * fov, -1.0f * fov, 1.0f * fov, 0.0f, 100.0f);
@@ -202,6 +206,11 @@ void Shader::SetInt(const std::string& name, int value) const
 void Shader::SetFloat(const std::string& name, float value) const
 {
     glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+}
+// ------------------------------------------------------------------------
+void Shader::SetIVec2(const std::string& name, const glm::ivec2& value) const
+{
+    glUniform2iv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
 }
 // ------------------------------------------------------------------------
 void Shader::SetVec2(const std::string& name, const glm::vec2& value) const
