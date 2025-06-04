@@ -36,6 +36,7 @@ This todo list is being updated as I think of new things to implement and progre
 			- [x] Animation switching
 				- [ ] Based on conditions? Perhaps
 			- [ ] Animation events
+- [ ] Render everything to Frame Buffer 
 
 ##### Physics
 For physics, I'll be using the Box2D (https://box2d.org/) library, a free physics engine
@@ -53,6 +54,10 @@ For sound, I'm still deciding on whether to use sdl2-mixer, miniaudio or SoLoud.
 - [x] Change the shader's pointer from shared to unique
 - [x] Rewrite object, level and component instanciation logic
 - [x] Add engine as a library in main cmakelists, instead of including all files directly in the .exe
+- [ ] Replace throws with assert where there shouldn't be other results
+
+##### Future changes
+- [ ] Support for alpha background 
 
 ### Technologies and libraries used
 C++ https://learn.microsoft.com/en-us/cpp/?view=msvc-170 </br>
