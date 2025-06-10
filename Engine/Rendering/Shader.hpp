@@ -15,12 +15,8 @@ class Shader
 public:
     Shader(
         const char* vertexFile,
-        const char* fragmentFile,
-        GameObject& _parent);
+        const char* fragmentFile);
     ~Shader();
-
-    // Bind shader ID
-    void Draw(const int spriteId);
 
     // Compilation error checks
     static void CheckCompileErrors(GLuint shader, std::string type);
@@ -48,13 +44,5 @@ public:
 private:
     // Shader's ID
     GLuint ID;
-    // Buffers
-    GLuint VAO, VBO, EBO;
-
-    // Transformation matrices
-    glm::mat4 viewMat, projMat, modelMat;
-
-    // GameObject this shader is attached to
-    GameObject& gameObject;
     
 };

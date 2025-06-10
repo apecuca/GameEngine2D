@@ -2,6 +2,7 @@
 
 // Libraries
 #include "CommonInclude/CommonRender.hpp"
+#include "Rendering/Rendering.hpp"
 
 // Standard
 #include "iostream"
@@ -93,6 +94,9 @@ void Window::callback_framebufferSize(GLFWwindow* window, int newWidth, int newH
 {
 	width = newWidth;
 	height = newHeight;
+
+	// Atualizar dimensões do framebuffer e renderbuffer
+	Rendering::ResizeFramebuffer();
 
 	glViewport(0, 0, width, height);
 }

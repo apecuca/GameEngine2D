@@ -10,6 +10,8 @@
 #include "Rendersource.hpp"
 #include "Sprite.hpp"
 
+class Window;
+
 class Rendering
 {
 public:
@@ -17,7 +19,7 @@ public:
 	static void Init();
 
 	// Render call, don't call this manually
-	static void Render();
+	static void Render(std::unique_ptr<Window>& window);
 
 	// Add a new render source
 	static void AddRenderSource(RenderSource* source);
@@ -28,19 +30,29 @@ public:
 	// Sprite pooling
 	//
 
+	// Pool sprite for multiple uses, returns identifier of pooled sprite
 	static int PoolSprite(const char* fileName, float pixelsPerUnit);
 
-	static Sprite* GetPooledSprite(const int& id);
+	static const Sprite& GetPooledSprite(const int& id);
 
 	static void ClearSpritePool();
 
 	// Called when a rendering order is changed, don't call this manually
 	static void OnRenderOrderChanged();
+	// Update framebuffer's size to new screen size, don't call this manually
+	static void ResizeFramebuffer();
 
+private:
+	static void GenerateBuffers();
 
 private:
 	// Avoids object creation
 	Rendering();
+	
+	// Frame Buffer Object, Frame Buffer Texture, Render Buffer Object
+	static GLuint FBO, FBT, RBO;
+	static GLuint screenquadVAO, screenquadVBO;
+	static std::unique_ptr<Shader> screenShader;
 
 	// Renderer list
 	static std::vector<RenderSource*> renderSources;

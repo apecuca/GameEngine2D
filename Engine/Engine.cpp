@@ -26,12 +26,8 @@ void Engine::Run()
         // Update behaviours
         LevelManager::UpdateCall();
 
-        // Clear window for render
-        window->ClearWindow();
-
-        // Render call for all sources and swap buffers
-        Rendering::Render();
-        window->SwapBuffers();
+        // Render call
+        Rendering::Render(window);
 
     }
 }; // Engine Run

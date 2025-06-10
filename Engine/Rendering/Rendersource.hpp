@@ -7,6 +7,7 @@
 // Engine classes
 #include "../Behaviour/Component.hpp"
 
+#include "../CommonInclude/CommonRender.hpp"
 #include "glm/glm.hpp"
 
 // Forward declaration
@@ -43,4 +44,9 @@ private:
 	std::unique_ptr<Shader> shader;
 	int renderOrder {0};
 
+	// Buffers
+	GLuint VAO, VBO, EBO;
+	// Transformation matrices
+	glm::mat4 viewMat, projMat, modelMat;
+	
 }; // Class

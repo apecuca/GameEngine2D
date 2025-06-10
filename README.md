@@ -17,6 +17,7 @@ This todo list is being updated as I think of new things to implement and progre
 
 ##### Engine management
 - [x] Realtime instancing and destruction of GameObjects
+	- [ ] Hierarchy
 - [x] Component system
 	- [x] Refactor system
 - [x] Level system
@@ -35,15 +36,16 @@ This todo list is being updated as I think of new things to implement and progre
 		- [x] Animation system
 			- [x] Animation switching
 				- [ ] Based on conditions? Perhaps
-			- [ ] Animation events
-- [ ] Render everything to Frame Buffer 
+			- [ ] Animation events (calling functions on specific frames (or timestamps, tbd))
+	- [ ] Shader pooling 
+- [x] Render everything to Frame Buffer 
 
 ##### Physics
 For physics, I'll be using the Box2D (https://box2d.org/) library, a free physics engine
 - [ ] Initialize API
 
 ##### UI
-For UI support, I'll plan on using Dear ImGui, since it has a lot of functionalities and it's very simple to implement and customize
+For UI support, I'm planning on using Dear ImGui, since it has a lot of ready-to-go functionalities and it's very simple to implement and customize
 - [ ] Task
 
 ##### Sound
@@ -54,10 +56,9 @@ For sound, I'm still deciding on whether to use sdl2-mixer, miniaudio or SoLoud.
 - [x] Change the shader's pointer from shared to unique
 - [x] Rewrite object, level and component instanciation logic
 - [x] Add engine as a library in main cmakelists, instead of including all files directly in the .exe
-- [ ] Replace throws with assert where there shouldn't be other results
 
 ##### Future changes
-- [ ] Support for alpha background 
+- [ ] When all the above tasks are completed, create new branch for the engine specialization (desktop games)
 
 ### Technologies and libraries used
 C++ https://learn.microsoft.com/en-us/cpp/?view=msvc-170 </br>

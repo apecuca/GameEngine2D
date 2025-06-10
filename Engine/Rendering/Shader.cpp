@@ -4,18 +4,8 @@
 #include <fstream>
 #include <sstream>
 
-// External
-#include <glm/gtc/matrix_transform.hpp>
-
-// Engine
-#include "Rendering.hpp"
-#include "../Window.hpp"
-#include "../Behaviour/GameObject.hpp"
-#include "../Debug.hpp"
-
-Shader::Shader(const char* vertexFile, const char* fragmentFile, GameObject& _parent) :
-    ID { 0 },
-    gameObject { _parent }
+Shader::Shader(const char* vertexFile, const char* fragmentFile) :
+    ID { 0 }
 {
     // Path translation
     std::string vertexPath = "Resources/Shaders/" + static_cast<std::string>(vertexFile);
@@ -78,45 +68,6 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile, GameObject& _pa
     glDeleteShader(vertex);
     glDeleteShader(fragment);
 
-    // Basic vertices
-    float vertices[] = {
-        // positions            // texture coords
-        1.0f,  1.0f, 0.0f,      1.0f, 1.0f, // top right
-        1.0f, -1.0f, 0.0f,      1.0f, 0.0f, // bottom right
-       -1.0f, -1.0f, 0.0f,      0.0f, 0.0f, // bottom left
-       -1.0f,  1.0f, 0.0f,      0.0f, 1.0f  // top left 
-    };
-
-    GLuint indices[] = {  // note that we start from 0!
-        0, 1, 3,  // first Triangle
-        1, 2, 3   // second Triangle
-    };
-
-    // Create and link VAO and VBO
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
-    // Bind VAO for use
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    // Position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    // texture coord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    // Unbind stuff
-    glBindBuffer(GL_ARRAY_BUFFER, 0); 
-    glBindVertexArray(0); 
-
     // Extra
     Use();
     SetVec4("color", 1.0f, 1.0f, 1.0f, 1.0f); // Sprite color
@@ -125,66 +76,13 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile, GameObject& _pa
 
 Shader::~Shader()
 {
-    // Delete all buffers and shader program to free memory
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+    // Delete shader program to free memory
     glDeleteProgram(ID);
 }
 
 //
 // Shader Utilities
 //
-
-// activate the shader
-void Shader::Draw(const int spriteId)
-{
-    // Bind program
-    Use();
-
-    Sprite* currentSprite = Rendering::GetPooledSprite(spriteId);
-
-    // Update sprite's size on shader
-    SetIVec2("texSize", currentSprite->getSize());
-
-    // Proj and view matrix
-    float aspect = (float)Window::width / (float)Window::height;
-    float fov = 5.0f;
-    projMat = glm::ortho(-aspect * fov, aspect * fov, -1.0f * fov, 1.0f * fov, 0.0f, 100.0f);
-    viewMat = glm::translate(viewMat, glm::vec3(0.0f, 0.0f, -10.0f));
-    SetMat4("projection", projMat);
-    SetMat4("view", viewMat);
-
-    // Update model matrix
-    // 
-    modelMat = glm::translate(modelMat, gameObject.position);
-    if (glm::length(gameObject.rotation) != 0)
-    {
-        modelMat = glm::rotate(modelMat,
-            glm::radians(glm::length(gameObject.rotation)),
-            glm::normalize(gameObject.rotation));
-    }
-    // Sprite size
-    glm::vec3 spriteSize = glm::vec3(currentSprite->getSize(), 1.0f) / currentSprite->pixelsPerUnit;
-    spriteSize.z = 1.0f;
-    modelMat = glm::scale(modelMat, spriteSize);
-    // GameObject scale
-    modelMat = glm::scale(modelMat, gameObject.scale);
-    SetMat4("model", modelMat);
-
-    // Textures
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, currentSprite->getTexID());
-
-    // Bind VAO and draw call
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-    // Cleanup
-    viewMat = glm::mat4(1.0f);
-    projMat = glm::mat4(1.0f);
-    modelMat = glm::mat4(1.0f);
-}
 
 // utility uniform functions
 // ------------------------------------------------------------------------
